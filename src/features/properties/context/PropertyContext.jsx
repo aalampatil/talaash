@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { propertiesApi } from "@/features/properties/services/properties.api";
 import { useRouter } from "next/navigation";
 
@@ -11,28 +11,40 @@ export const PropertyContextProvider = ({ children }) => {
   const [properties, setProperties] = useState([]);
   const [property, setProperty] = useState({});
   const [allProperties, setAllProperties] = useState([]);
+  const [propertiesLoading, setPropertiesLoading] = useState(true);
+  const [propertiesError, setPropertiesError] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState("");
 
-  const fetchAllProperties = async () => {
+  const fetchAllProperties = useCallback(async () => {
+    setPropertiesLoading(true);
+    setPropertiesError("");
     try {
       const response = await propertiesApi.all();
       if (response.data.success) {
         setAllProperties(response.data.data);
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setPropertiesError("Unable to load properties. Please try again.");
+    } finally {
+      setPropertiesLoading(false);
     }
-  };
+  }, []);
 
   //filter
   const handleSearch = async (city, rent, propertyType) => {
+    setSearchLoading(true);
+    setSearchError("");
     try {
       const response = await propertiesApi.search({ city, rent, propertyType });
       if (response.data.success) {
         setProperties(response.data.data);
       }
       router.push("/filter-properties");
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setSearchError("Unable to search properties. Please try again.");
+    } finally {
+      setSearchLoading(false);
     }
   };
   //inividual property
@@ -49,7 +61,7 @@ export const PropertyContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAllProperties();
-  }, []);
+  }, [fetchAllProperties]);
 
   const value = {
     handleSearch,
@@ -58,6 +70,11 @@ export const PropertyContextProvider = ({ children }) => {
     property,
     setProperty,
     allProperties,
+    propertiesLoading,
+    propertiesError,
+    fetchAllProperties,
+    searchLoading,
+    searchError,
   };
   return (
     <PropertyContext.Provider value={value}>

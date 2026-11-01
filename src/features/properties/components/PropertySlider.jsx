@@ -5,22 +5,37 @@ import { UsePropertyContext } from "@/features/properties/context/PropertyContex
 import PropertyCard from "@/features/properties/components/PropertyCard.jsx";
 
 const PropertySlider = () => {
-  const { allProperties } = UsePropertyContext();
+  const { allProperties, propertiesLoading, propertiesError, fetchAllProperties } = UsePropertyContext();
   const [randomProps, setRandomProps] = useState([]);
 
   useEffect(() => {
     if (allProperties?.length) {
       const shuffled = [...allProperties].sort(() => 0.5 - Math.random());
       setRandomProps(shuffled.slice(0, 6));
+    } else {
+      setRandomProps([]);
     }
   }, [allProperties]);
 
-  if (!randomProps.length) {
+  if (propertiesLoading) {
     return (
       <div className="flex justify-center items-center h-64">
         <p className="text-gray-500 text-lg">Loading properties...</p>
       </div>
     );
+  }
+
+  if (propertiesError) {
+    return (
+      <div role="alert" className="flex min-h-64 flex-col items-center justify-center gap-4 p-6">
+        <p>{propertiesError}</p>
+        <button onClick={fetchAllProperties} className="rounded bg-black px-4 py-2 text-white">Try again</button>
+      </div>
+    );
+  }
+
+  if (!allProperties.length) {
+    return <p className="p-10 text-center text-gray-500">No properties are available yet.</p>;
   }
 
   return (

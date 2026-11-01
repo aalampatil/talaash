@@ -6,35 +6,51 @@ import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
 import { propertiesApi } from "@/features/properties/services/properties.api";
 import { getPropertyImageUrl } from "@/features/properties/utils/propertyImage.js";
+import Link from "next/link";
 
 function Property() {
-  // const { searchProperty } = UsePropertyContext();
   const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [attempt, setAttempt] = useState(0);
   const { requestVisit, saveProp } = useTenantContext();
 
   const [showVisitBox, setShowVisitBox] = useState(false);
   const [visitDate, setVisitDate] = useState("");
   const { id } = useParams();
 
-  const searchProperty = async (id) => {
-    try {
-      const response = await propertiesApi.byId(id);
-      if (response.data.success) {
-        setProperty(response.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    searchProperty(id);
-  }, [id]);
+    const controller = new AbortController();
+    setLoading(true);
+    setProperty(null);
+    setError("");
+    propertiesApi.byId(id, { signal: controller.signal })
+      .then(({ data }) => {
+        if (data.success && data.data) setProperty(data.data);
+        else setError("Property not found.");
+      })
+      .catch((failure) => {
+        if (controller.signal.aborted) return;
+        setError(failure.response?.status === 404 ? "Property not found." : failure.response?.status === 400 ? "Invalid property link." : "Unable to load this property. Please try again.");
+      })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [id, attempt]);
 
-  if (!property) {
+  if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
         Loading property...
+      </div>
+    );
+  }
+
+  if (error || !property) {
+    return (
+      <div role="alert" className="flex min-h-[60vh] flex-col items-center justify-center gap-4 p-6">
+        <p>{error || "Property not found."}</p>
+        <button onClick={() => setAttempt(value => value + 1)} className="rounded bg-black px-4 py-2 text-white">Try again</button>
+        <Link href="/">Browse homes</Link>
       </div>
     );
   }

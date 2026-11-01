@@ -9,10 +9,10 @@ function SearchFilter() {
   const [city, setCity] = useState("Delhi");
   const [rent, setRent] = useState(5000);
   const [propertyType, setPropertyType] = useState("1BHK");
-  const { handleSearch } = UsePropertyContext();
+  const { handleSearch, searchLoading, searchError } = UsePropertyContext();
 
   return (
-    <div className="w-full flex justify-center px-2">
+    <div className="w-full flex flex-col items-center px-2">
       <div className="w-full max-w-4xl bg-white border rounded-xl md:rounded-full shadow-sm p-3 md:p-1">
         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-0">
           {/* WHERE */}
@@ -84,6 +84,8 @@ function SearchFilter() {
 
           {/* SEARCH BUTTON */}
           <button
+            disabled={searchLoading}
+            aria-label={searchLoading ? "Searching properties" : "Search properties"}
             onClick={() => handleSearch(city, rent, propertyType)}
             className="mt-2 md:mt-0 md:ml-2 bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center gap-2 px-4 py-2 md:p-3 rounded-lg md:rounded-full transition"
           >
@@ -92,6 +94,7 @@ function SearchFilter() {
           </button>
         </div>
       </div>
+      {searchError && <p role="alert" className="mt-2 text-sm text-red-700">{searchError}</p>}
     </div>
   );
 }

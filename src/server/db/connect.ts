@@ -1,6 +1,7 @@
 import "server-only";
 import mongoose from "mongoose";
 import { env } from "@/server/config/env";
+import { configureDatabaseDns } from "@/server/db/dns";
 // Register referenced models before any populate() operation.
 import "@/server/modules/user/user.model";
 import "@/server/modules/tenant/tenant.model";
@@ -15,6 +16,7 @@ const cache = globalWithMongo.talaashMongo ??= { promise: null };
 export async function connectDB() {
   if (mongoose.connection.readyState === 1) return mongoose;
   if (!cache.promise) {
+    configureDatabaseDns();
     cache.promise = mongoose.connect(env.MONGODB_URI, { serverSelectionTimeoutMS: 10000 })
       .finally(() => { cache.promise = null; });
   }

@@ -76,6 +76,7 @@ Copy `.env.example` to `.env.local`, then fill in:
 | `CLERK_WEBHOOK_SIGNING_SECRET` | Verify Clerk webhook signatures |
 | `ADMIN_EMAIL` | Email allowed to receive the admin role |
 | `MONGODB_URI` | MongoDB connection string |
+| `MONGODB_DNS_SERVERS` | Optional comma-separated DNS servers for MongoDB SRV discovery when the system resolver fails |
 | `CLOUDINARY_CLOUD_NAME` | Cloudinary account |
 | `CLOUDINARY_API_KEY` | Cloudinary API access |
 | `CLOUDINARY_API_SECRET` | Cloudinary server secret |
@@ -133,4 +134,4 @@ The separate Vite and Express applications have been replaced by one Next.js app
 
 Verification passed for the production build, lint, TypeScript, six server regression checks, and native API smoke checks covering health, 30 protected requests, versioned aliases, invalid IDs, unsigned webhook rejection, and unsupported methods. Chrome checks passed for home and property navigation, dynamic-route refresh, and tenant/landlord/admin login guards without browser runtime errors. Property UI checks used an API fixture. The Render configuration matches the current official JSON schema.
 
-Live database-backed workflows require a reachable MongoDB instance and valid external credentials. The configured MongoDB SRV record failed DNS resolution during migration, so live data operations could not be verified in this environment.
+The local system resolver refused MongoDB SRV queries. Setting `MONGODB_DNS_SERVERS=1.1.1.1,8.8.8.8` in the ignored `.env.local` resolved the connection; live property reads now succeed with 88 available properties. The setting affects DNS queries in the application process and does not change operating-system DNS settings. Other environments can use their normal resolver by omitting this variable.
