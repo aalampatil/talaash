@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { UseUserContext } from "@/features/auth/context/UserContext.jsx";
+import { useTenantContext } from "@/features/tenant/context/TenantContext";
 import Link from "next/link";
 import { getPropertyImageUrl } from "@/features/properties/utils/propertyImage.js";
 
 function SavedProperties() {
-  const { savedProperties } = UseUserContext();
+  const { savedProperties } = useTenantContext();
 
   if (!savedProperties || savedProperties.length === 0) {
     return (

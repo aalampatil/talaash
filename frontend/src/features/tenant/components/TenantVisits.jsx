@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { UseUserContext } from "@/features/auth/context/UserContext.jsx";
+import { useTenantContext } from "@/features/tenant/context/TenantContext";
 
 function TenantVisits() {
-  const { visits, cancelVisit } = UseUserContext();
+  const { visits, cancelVisit } = useTenantContext();
 
   return (
     <div className="min-h-screen bg-white p-6">

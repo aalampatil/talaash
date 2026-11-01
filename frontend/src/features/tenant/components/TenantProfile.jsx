@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { axiosApi } from "@/lib/api/client.js";
-import { UseUserContext } from "@/features/auth/context/UserContext.jsx";
+import { tenantApi } from "@/features/tenant/services/tenant.api";
+import { useTenantContext } from "@/features/tenant/context/TenantContext";
 
 const defaultPreferences = {
   householdType: "single",
@@ -15,7 +15,7 @@ const defaultPreferences = {
 };
 
 const TenantProfile = () => {
-  const { tenantProfile, fetchTenant } = UseUserContext();
+  const { tenantProfile, fetchTenant } = useTenantContext();
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState(defaultPreferences);
 
@@ -40,7 +40,7 @@ const TenantProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axiosApi.patch("/tenant/preferences", formData);
+      const response = await tenantApi.updatePreferences(formData);
       if (response.data.success) {
         toast.success(response.data.message);
         await fetchTenant();

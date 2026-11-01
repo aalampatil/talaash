@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { axiosApi } from "@/lib/api/client.js";
+import { propertiesApi } from "@/features/properties/services/properties.api";
 import { useRouter } from "next/navigation";
 
 const PropertyContext = createContext();
@@ -14,7 +14,7 @@ export const PropertyContextProvider = ({ children }) => {
 
   const fetchAllProperties = async () => {
     try {
-      const response = await axiosApi.get("/property/");
+      const response = await propertiesApi.all();
       if (response.data.success) {
         setAllProperties(response.data.data);
       }
@@ -26,9 +26,7 @@ export const PropertyContextProvider = ({ children }) => {
   //filter
   const handleSearch = async (city, rent, propertyType) => {
     try {
-      const response = await axiosApi("/property/search", {
-        params: { city: city, rent: rent, propertyType: propertyType },
-      });
+      const response = await propertiesApi.search({ city, rent, propertyType });
       if (response.data.success) {
         setProperties(response.data.data);
       }
@@ -40,7 +38,7 @@ export const PropertyContextProvider = ({ children }) => {
   //inividual property
   const searchProperty = async (id) => {
     try {
-      const response = await axiosApi.get(`/property/${id}`);
+      const response = await propertiesApi.byId(id);
       if (response.data.success) {
         setProperty(response.data.data);
       }

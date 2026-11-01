@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { axiosApi } from "@/lib/api/client.js";
+import { adminApi } from "@/features/admin/services/admin.api";
 import { UseUserContext } from "@/features/auth/context/UserContext.jsx";
 
 const AdminContext = createContext();
@@ -19,7 +19,7 @@ export const AdminContextProvider = ({ children }) => {
   // Fetch Users
   const fetchAllUsers = async () => {
     try {
-      const response = await axiosApi.get("/admin/allUsers");
+      const response = await adminApi.users();
 
       if (response.data.success) {
         setAllUsers(response.data.data);
@@ -33,7 +33,7 @@ export const AdminContextProvider = ({ children }) => {
   // Fetch Landlords
   const fetchAllLandlords = async () => {
     try {
-      const response = await axiosApi.get("/admin/allLandlords");
+      const response = await adminApi.landlords();
 
       if (response.data.success) {
         setAllLandlords(response.data.data);
@@ -47,7 +47,7 @@ export const AdminContextProvider = ({ children }) => {
   // Fetch Properties
   const fetchAllProperties = async () => {
     try {
-      const response = await axiosApi.get("/admin/allProperties");
+      const response = await adminApi.properties();
 
       if (response.data.success) {
         setAllProperties(response.data.data);

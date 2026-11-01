@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { UseUserContext } from "@/features/auth/context/UserContext.jsx";
+import { useTenantContext } from "@/features/tenant/context/TenantContext";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
-import { axiosApi } from "@/lib/api/client.js";
+import { propertiesApi } from "@/features/properties/services/properties.api";
 import { getPropertyImageUrl } from "@/features/properties/utils/propertyImage.js";
 
 function Property() {
   // const { searchProperty } = UsePropertyContext();
   const [property, setProperty] = useState(null);
-  const { requestVisit, saveProp } = UseUserContext();
+  const { requestVisit, saveProp } = useTenantContext();
 
   const [showVisitBox, setShowVisitBox] = useState(false);
   const [visitDate, setVisitDate] = useState("");
@@ -18,7 +18,7 @@ function Property() {
 
   const searchProperty = async (id) => {
     try {
-      const response = await axiosApi.get(`/property/${id}`);
+      const response = await propertiesApi.byId(id);
       if (response.data.success) {
         setProperty(response.data.data);
       }
@@ -39,15 +39,20 @@ function Property() {
     );
   }
 
-  const handleVisitRequest = () => {
+  const handleVisitRequest = async () => {
     if (!visitDate) {
       toast.error("Please select a visit date");
       return;
     }
 
-    requestVisit(property._id, visitDate);
-    setShowVisitBox(false);
-    toast.success("Visit request sent");
+    try {
+      await requestVisit(property._id, visitDate);
+      setShowVisitBox(false);
+      toast.success("Visit request sent");
+    } catch (error) {
+      console.error(error);
+      toast.error("Could not request visit");
+    }
   };
 
   return (
@@ -73,6 +78,7 @@ function Property() {
         ) : (
           <img
             src="https://dummyimage.com/800x600"
+            alt="Property image unavailable"
             className="w-full h-56 object-cover rounded-lg"
           />
         )}
