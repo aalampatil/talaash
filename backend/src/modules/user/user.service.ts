@@ -1,6 +1,6 @@
 import { clerkClient } from "@clerk/express";
 import type { WebhookEvent } from "@clerk/express/webhooks";
-import { Landlord } from "../landord/landlord.model.js";
+import { Landlord } from "../landlord/landlord.model.js";
 import { Tenant } from "../tenant/tenant.model.js";
 import { User, type UserDocument } from "./user.model.js";
 import { env } from "../../env.js";

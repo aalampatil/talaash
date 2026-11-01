@@ -8,7 +8,7 @@ import { UserController } from "./modules/user/user.controller.js";
 import { wrapAsync } from "./common/utils/wrap-async.js";
 import { env } from "./env.js";
 import { propertyRouter } from "./modules/property/property.routes.js";
-import { landlordRouter } from "./modules/landord/landlord.routes.js";
+import { landlordRouter } from "./modules/landlord/landlord.routes.js";
 import { adminRouter } from "./modules/admin/admin.routes.js";
 
 export const createServerApplication = () => {
@@ -18,8 +18,7 @@ export const createServerApplication = () => {
   app.use(
     cors({
       origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
+        "http://localhost:3000",
         env.CLIENT,
       ],
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import mongoose from "mongoose";
 import { connectDB } from "./common/db/db.js";
-import { Landlord } from "./modules/landord/landlord.model.js";
+import { Landlord } from "./modules/landlord/landlord.model.js";
 import { PropertyModel } from "./modules/property/property.model.js";
 import { Tenant } from "./modules/tenant/tenant.model.js";
 import { User, type UserDocument } from "./modules/user/user.model.js";
