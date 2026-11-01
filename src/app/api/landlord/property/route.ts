@@ -1,4 +1,4 @@
-import { apiRoute, ok } from "@/server/http/route";
+import { apiRoute,ok } from "@/server/http/route";
 import * as service from "@/server/modules/landlord/landlord.service";
 import { readPropertyUpload } from "@/server/storage/property-upload";
 

@@ -2,8 +2,8 @@ import "server-only";
 
 import ApiError from "@/server/http/api-error";
 import {
-  deleteFromCloudinary,
-  uploadOnCloudinary,
+deleteFromCloudinary,
+uploadOnCloudinary,
 } from "@/server/storage/cloudinary";
 import { PropertyModel } from "../property/property.model";
 import { Visit } from "../visit/visit.model";
@@ -184,10 +184,10 @@ const ServiceHandleSetVisitStatus = async ({
 };
 
 export {
-  ServiceHandleCreateProperty,
-  ServiceHandleDeleteProperty,
-  ServiceHandleGetLandlordProfile,
-  ServiceHandleGetMyProperties,
-  ServiceHandleGetVisitRequests,
-  ServiceHandleSetVisitStatus,
+ServiceHandleCreateProperty,
+ServiceHandleDeleteProperty,
+ServiceHandleGetLandlordProfile,
+ServiceHandleGetMyProperties,
+ServiceHandleGetVisitRequests,
+ServiceHandleSetVisitStatus
 };

@@ -1,13 +1,13 @@
 import { loadEnvConfig } from "@next/env";
-
-loadEnvConfig(process.cwd());
 import mongoose from "mongoose";
 import { connectDB } from "../src/server/db/connect";
 import { Landlord } from "../src/server/modules/landlord/landlord.model";
 import { PropertyModel } from "../src/server/modules/property/property.model";
 import { Tenant } from "../src/server/modules/tenant/tenant.model";
-import { User, type UserDocument } from "../src/server/modules/user/user.model";
+import { User,type UserDocument } from "../src/server/modules/user/user.model";
 import { Visit } from "../src/server/modules/visit/visit.model";
+
+loadEnvConfig(process.cwd());
 
 type AppRole = UserDocument["role"];
 type HouseholdType = "family" | "single" | "room";

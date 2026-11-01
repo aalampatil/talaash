@@ -1,12 +1,12 @@
 import "server-only";
 
+import { env } from "@/server/config/env";
+import ApiError from "@/server/http/api-error";
 import { clerkClient } from "@clerk/nextjs/server";
 import type { WebhookEvent } from "@clerk/nextjs/webhooks";
 import { Landlord } from "../landlord/landlord.model";
 import { Tenant } from "../tenant/tenant.model";
-import { User, type UserDocument } from "./user.model";
-import { env } from "@/server/config/env";
-import ApiError from "@/server/http/api-error";
+import { User,type UserDocument } from "./user.model";
 
 type AppRole = "tenant" | "landlord" | "admin";
 
@@ -178,9 +178,7 @@ const handleClerkWebhookEvent = async (event: WebhookEvent) => {
 };
 
 export {
-  deleteUserFromClerkId,
-  becomeLandlord,
-  handleClerkWebhookEvent,
-  syncUserFromClerkId,
-  syncUserFromClerkUser,
+becomeLandlord,deleteUserFromClerkId,handleClerkWebhookEvent,
+syncUserFromClerkId,
+syncUserFromClerkUser
 };

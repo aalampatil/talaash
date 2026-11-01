@@ -1,6 +1,6 @@
-import "server-only";
-import { v2 as cloudinary, type UploadApiResponse } from "cloudinary";
 import { env } from "@/server/config/env";
+import { v2 as cloudinary,type UploadApiResponse } from "cloudinary";
+import "server-only";
 
 function configure() {
   cloudinary.config({

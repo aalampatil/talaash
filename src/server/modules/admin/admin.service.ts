@@ -1,9 +1,9 @@
 import "server-only";
 
+import { env } from "@/server/config/env";
+import ApiError from "@/server/http/api-error";
 import { PropertyModel } from "../property/property.model";
 import { User } from "../user/user.model";
-import ApiError from "@/server/http/api-error";
-import { env } from "@/server/config/env";
 
 const assertAdmin = async (clerkId: string) => {
   const user = await User.findOne({ clerkId });
@@ -32,7 +32,7 @@ const ServiceHandleGetAllUsers = async (clerkId: string) => {
 };
 
 export {
-  ServiceHandleGetAllLandlords,
-  ServiceHandleGetAllProperties,
-  ServiceHandleGetAllUsers,
+ServiceHandleGetAllLandlords,
+ServiceHandleGetAllProperties,
+ServiceHandleGetAllUsers
 };

@@ -1,6 +1,6 @@
-import { apiRoute, ok } from "@/server/http/route";
-import * as service from "@/server/modules/property/property.service";
 import ApiError from "@/server/http/api-error";
+import { apiRoute,ok } from "@/server/http/route";
+import * as service from "@/server/modules/property/property.service";
 
 export const runtime = "nodejs";
 

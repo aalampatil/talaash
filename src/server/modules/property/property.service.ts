@@ -1,8 +1,8 @@
 import "server-only";
 
 import ApiError from "@/server/http/api-error";
-import { PropertyModel } from "./property.model";
 import { Landlord } from "../landlord/landlord.model";
+import { PropertyModel } from "./property.model";
 
 const ServiceHandleGetAllProperties = async () => {
   return PropertyModel.find({ status: "available" }).populate(
@@ -50,8 +50,8 @@ const ServiceHandleTogglePropertyAvailability = async (propertyId: string, clerk
 };
 
 export {
-  ServiceHandleGetAllProperties,
-  ServiceHandleGetProperty,
-  ServiceHandleSearchProperties,
-  ServiceHandleTogglePropertyAvailability,
+ServiceHandleGetAllProperties,
+ServiceHandleGetProperty,
+ServiceHandleSearchProperties,
+ServiceHandleTogglePropertyAvailability
 };

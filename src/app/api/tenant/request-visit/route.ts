@@ -1,4 +1,4 @@
-import { apiRoute, ok, jsonBody } from "@/server/http/route";
+import { apiRoute,jsonBody,ok } from "@/server/http/route";
 import * as service from "@/server/modules/tenant/tenant.service";
 import { visitRequestSchema } from "@/server/validation/requests";
 

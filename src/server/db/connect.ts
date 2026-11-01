@@ -1,12 +1,12 @@
-import "server-only";
-import mongoose from "mongoose";
 import { env } from "@/server/config/env";
 import { configureDatabaseDns } from "@/server/db/dns";
+import mongoose from "mongoose";
+import "server-only";
 // Register referenced models before any populate() operation.
-import "@/server/modules/user/user.model";
-import "@/server/modules/tenant/tenant.model";
 import "@/server/modules/landlord/landlord.model";
 import "@/server/modules/property/property.model";
+import "@/server/modules/tenant/tenant.model";
+import "@/server/modules/user/user.model";
 import "@/server/modules/visit/visit.model";
 
 type ConnectionCache = { promise: Promise<typeof mongoose> | null };

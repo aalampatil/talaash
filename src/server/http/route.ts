@@ -1,10 +1,10 @@
-import "server-only";
-import type { NextRequest } from "next/server";
-import { auth } from "@clerk/nextjs/server";
-import { ZodError } from "zod";
-import mongoose from "mongoose";
 import { connectDB } from "@/server/db/connect";
 import ApiError from "@/server/http/api-error";
+import { auth } from "@clerk/nextjs/server";
+import mongoose from "mongoose";
+import type { NextRequest } from "next/server";
+import "server-only";
+import { ZodError } from "zod";
 
 type Context = { params: Promise<Record<string, string>> };
 type ApiContext = { request: NextRequest; params: Record<string, string>; clerkId: string };

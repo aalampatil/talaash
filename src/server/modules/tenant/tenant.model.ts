@@ -1,7 +1,6 @@
 import "server-only";
 
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
-import { required } from "zod/mini";
+import mongoose,{ Schema,type InferSchemaType } from "mongoose";
 
 const tenantSchema = new Schema(
   {

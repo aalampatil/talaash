@@ -1,6 +1,6 @@
 import "server-only";
 
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose,{ Schema,type InferSchemaType } from "mongoose";
 
 const visitSchema = new Schema(
   {

@@ -1,9 +1,9 @@
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { apiRoute, ok } from "@/server/http/route";
-import { connectDB } from "@/server/db/connect";
 import { env } from "@/server/config/env";
+import { connectDB } from "@/server/db/connect";
 import ApiError from "@/server/http/api-error";
+import { apiRoute,ok } from "@/server/http/route";
 import { handleClerkWebhookEvent } from "@/server/modules/user/user.service";
+import { verifyWebhook } from "@clerk/nextjs/webhooks";
 
 export const runtime = "nodejs";
 

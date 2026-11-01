@@ -50,7 +50,7 @@ src/
   hooks/                     Shared React hooks
   data/                      Static reference data
   styles/                    Global styles and design tokens
-  proxy.js                   Clerk session integration
+  proxy.ts                   Clerk session integration
 public/images/               Static assets
 scripts/                     Database seed and API verification commands
 tests/server/                Server migration regression checks

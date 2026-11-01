@@ -2,9 +2,9 @@ import "server-only";
 
 import ApiError from "@/server/http/api-error";
 import { PropertyModel } from "../property/property.model";
-import { Tenant, type TenantDocument } from "./tenant.model";
-import { Visit } from "../visit/visit.model";
 import { User } from "../user/user.model";
+import { Visit } from "../visit/visit.model";
+import { Tenant,type TenantDocument } from "./tenant.model";
 
 // ── Shared helper ─────────────────────────────────────────────────────────────
 
@@ -269,15 +269,5 @@ const ServiceHandleGetRecommendedProperties = async (clerkId: string) => {
 };
 
 export {
-  ServiceHandleGetTenantProfile,
-  ServiceHandleUpdateTenantProfile,
-  ServiceHandleUpdateTenantPreferences,
-  ServiceHandleSaveProperty,
-  ServiceHandleRemoveSavedProperty,
-  ServiceHandleAddToShortListed,
-  ServiceHandleRemoveFromShortListed,
-  ServiceHandleRequestVisit,
-  ServiceHandleCancelVisit,
-  ServiceHandleGetTenantVisits,
-  ServiceHandleGetRecommendedProperties,
+ServiceHandleAddToShortListed,ServiceHandleCancelVisit,ServiceHandleGetRecommendedProperties,ServiceHandleGetTenantProfile,ServiceHandleGetTenantVisits,ServiceHandleRemoveFromShortListed,ServiceHandleRemoveSavedProperty,ServiceHandleRequestVisit,ServiceHandleSaveProperty,ServiceHandleUpdateTenantPreferences,ServiceHandleUpdateTenantProfile
 };

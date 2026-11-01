@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { readPropertyUpload } from "../../src/server/storage/property-upload";
 import { Landlord } from "../../src/server/modules/landlord/landlord.model";
 import { PropertyModel } from "../../src/server/modules/property/property.model";
 import { ServiceHandleTogglePropertyAvailability } from "../../src/server/modules/property/property.service";
+import { readPropertyUpload } from "../../src/server/storage/property-upload";
 
 const propertyId = "507f1f77bcf86cd799439011";
 

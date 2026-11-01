@@ -1,5 +1,5 @@
-import "server-only";
 import { setServers } from "node:dns/promises";
+import "server-only";
 
 let configuredServers = "";
 
