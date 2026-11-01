@@ -16,6 +16,8 @@ dist
 dist-ssr
 .next/
 out/
+*.tsbuildinfo
+next-env.d.ts
 .env*
 !.env.example
 *.local

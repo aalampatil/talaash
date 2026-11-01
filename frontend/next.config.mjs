@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Forward the browser's same-origin API requests to the existing API service.
+  // Preserve the versioned API URLs while serving native Next.js handlers.
   async rewrites() {
-    const apiUrl = (process.env.API_URL || "http://localhost:8080/api").replace(/\/$/, "");
-    return [{ source: "/api/:path*", destination: `${apiUrl}/:path*` }];
+    return { beforeFiles: [{ source: "/api/v1/:path*", destination: "/api/:path*" }] };
   },
 };
 export default nextConfig;
