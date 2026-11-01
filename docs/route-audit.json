@@ -1,0 +1,634 @@
+{
+  "checkedAt": "2026-11-01T10:54:53.110Z",
+  "api": [
+    {
+      "route": "/api/admin/allLandlords",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/admin/allLandlords",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/admin/allProperties",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/admin/allProperties",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/admin/allUsers",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/admin/allUsers",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/health",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/health",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/profile",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/profile",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/property",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/property",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/property",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/property",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/property/[propertyId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/property/[propertyId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/visit/approve/[visitId]",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/visit/approve/[visitId]",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/visit/reject/[visitId]",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/visit/reject/[visitId]",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/landlord/visits",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/landlord/visits",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/property",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/property",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/property/search",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/property/search",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/property/[propertyId]",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/property/[propertyId]",
+      "method": "GET",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/property/[propertyId]/toggle",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/property/[propertyId]/toggle",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/cancel-visit/[visitId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/cancel-visit/[visitId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/cancel-visit/[visitId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/cancel-visit/[visitId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/getTenant",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/getTenant",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/preferences",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/preferences",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/preferences",
+      "method": "PUT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/preferences",
+      "method": "PUT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/profile",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/profile",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/profile/update",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/profile/update",
+      "method": "PATCH",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/recommended-properties",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/recommended-properties",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/remove-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/remove-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/remove-property/[propertyId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/remove-property/[propertyId]",
+      "method": "DELETE",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/remove-shortlist/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/remove-shortlist/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/request-visit",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/request-visit",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/save-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/save-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/shortlist-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/shortlist-property/[propertyId]",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/tenant/visits",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/tenant/visits",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/user/become-landlord",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/user/become-landlord",
+      "method": "POST",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/user/getUser",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/user/getUser",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/user/me",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/user/me",
+      "method": "GET",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/webhooks/clerk",
+      "method": "POST",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "route": "/api/v1/webhooks/clerk",
+      "method": "POST",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    }
+  ],
+  "pages": [
+    {
+      "route": "/account",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/tenant"
+    },
+    {
+      "route": "/filter-properties",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/tenant"
+    },
+    {
+      "route": "/my-visits",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/tenant"
+    },
+    {
+      "route": "/saved-properties",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/tenant"
+    },
+    {
+      "route": "/",
+      "passed": true,
+      "http": 200,
+      "behavior": "Live properties render"
+    },
+    {
+      "route": "/property/[id]",
+      "passed": true,
+      "http": 200,
+      "behavior": "Live property details render and survive refresh"
+    },
+    {
+      "route": "/dashboard/admin/all-landlords",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/admin"
+    },
+    {
+      "route": "/dashboard/admin/all-properties",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/admin"
+    },
+    {
+      "route": "/dashboard/admin/all-users",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/admin"
+    },
+    {
+      "route": "/dashboard/admin",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/admin"
+    },
+    {
+      "route": "/dashboard/landlord/add-new-property",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/landlord"
+    },
+    {
+      "route": "/dashboard/landlord",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/landlord"
+    },
+    {
+      "route": "/dashboard/landlord/properties",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/landlord"
+    },
+    {
+      "route": "/dashboard/landlord/visits",
+      "passed": true,
+      "http": 200,
+      "behavior": "Redirects unauthenticated users to /login/landlord"
+    },
+    {
+      "route": "/login",
+      "passed": true,
+      "http": 200,
+      "behavior": "Login UI renders"
+    },
+    {
+      "route": "/login/tenant",
+      "passed": true,
+      "http": 200,
+      "behavior": "Login UI renders"
+    },
+    {
+      "route": "/login/landlord",
+      "passed": true,
+      "http": 200,
+      "behavior": "Login UI renders"
+    },
+    {
+      "route": "/login/admin",
+      "passed": true,
+      "http": 200,
+      "behavior": "Login UI renders"
+    }
+  ],
+  "links": [
+    {
+      "file": "src/features/landlord/components/LandlordProperties.jsx",
+      "line": 71,
+      "href": "/dashboard/landlord/properties/edit/sample-id",
+      "status": "Missing page route",
+      "http": 404,
+      "notFound": true
+    },
+    {
+      "file": "src/features/landlord/components/LandlordProperties.jsx",
+      "line": 78,
+      "href": "/dashboard/landlord/properties/sample-id/visits",
+      "status": "Missing page route",
+      "http": 404,
+      "notFound": true
+    }
+  ],
+  "recovery": [
+    {
+      "test": "Invalid property ID shows a clear error",
+      "passed": true
+    },
+    {
+      "test": "Missing property shows a clear error",
+      "passed": true
+    },
+    {
+      "test": "Listing failure shows an error and retry recovers live data",
+      "passed": true
+    },
+    {
+      "test": "Search failure shows an accessible error",
+      "passed": true
+    },
+    {
+      "test": "Property detail failure shows an error and retry recovers live data",
+      "passed": true
+    }
+  ],
+  "availableProperties": 88,
+  "recoveryRuntimeErrors": [],
+  "authenticatedFlows": "Not verified: no authenticated tenant, landlord, or admin session was used. Protected page redirects and API authorization were checked while signed out."
+}
