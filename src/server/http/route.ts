@@ -23,7 +23,8 @@ export function apiRoute(handler: Handler, options: { public?: boolean; database
         if (!session.userId) throw ApiError.unauthorised("Authentication required");
         clerkId = session.userId;
       }
-      const params = await context.params;
+      // Static routes receive an empty context without a params promise.
+      const params = (await context.params) ?? {};
       for (const [key, value] of Object.entries(params)) {
         if (key.endsWith("Id") && !/^[a-f0-9]{24}$/i.test(value)) {
           throw ApiError.badRequest(`Invalid ${key}`);

@@ -2,6 +2,7 @@ services:
   - type: web
     name: talaash-backend
     runtime: node
-    rootDir: backend
-    buildCommand: bun install --frozen-lockfile && bun run build
-    startCommand: bun run start
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health

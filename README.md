@@ -1,133 +1,136 @@
 # Talaash
 
-Rental property discovery with tenant, landlord, and admin experiences. The web app uses Next.js App Router, React, Tailwind CSS, and Clerk. The separate Express API uses MongoDB and Cloudinary.
+A full-stack Next.js application for rental property discovery, tenant visits, landlord listings, and administration. UI pages and API endpoints run together in one Next.js process. MongoDB stores application data, Clerk handles authentication, and Cloudinary stores property images.
 
-## Project structure
+## Folder structure
 
 ```text
-frontend/
-  public/images/            Logos and static assets
-  src/
-    app/                    Next.js routes, layouts, metadata, and error pages
-      (site)/               Shared public and tenant site shell
-        (tenant)/           Tenant-only routes and role guard
-        property/[id]/      Public property details
-      dashboard/
-        admin/              Admin routes and scoped provider
-        landlord/           Landlord routes and scoped provider
-      login/[role]/         Tenant, landlord, and admin authentication
-    features/
-      auth/                 Clerk integration, role guard, user session state
-      properties/           Discovery, search, cards, property details
-      tenant/               Profile, saved properties, visit requests
-      landlord/             Listings, uploads, visit management
-      admin/                Dashboard, users, landlords, property overview
-    components/
-      layout/               Header, footer, sidebar, shared application shell
-      feedback/             Shared loading UI
-      ui/                   Reusable UI primitives
-    providers/              Application provider composition
-    lib/api/                Shared Axios client
-    lib/utils.js            Shared CSS class utilities
-    hooks/                  Shared React hooks
-    data/                   Static reference data
-    styles/                 Global styles and design tokens
-    proxy.js                Clerk request/session integration
-backend/
-  src/
-    modules/                Domain-specific routes, controllers, services, models
+src/
+  app/
+    (site)/                  Public and tenant pages
+      (tenant)/              Tenant-only layout and pages
+      property/[id]/         Public property details
+    dashboard/
+      admin/                 Admin pages and scoped provider
+      landlord/              Landlord pages and scoped provider
+    login/[role]/            Tenant, landlord, and admin login
+    api/                     Native Next.js Route Handlers
+      admin/                 Administrative queries
+      landlord/              Listings, uploads, visit approvals
+      property/              Discovery, search, availability
+      tenant/                Profile, preferences, saved homes, visits
+      user/                  Clerk user synchronization and role changes
+      webhooks/clerk/        Signature-verified Clerk webhook
+      health/                Application health check
+  features/
+    auth/                    Session state, login UI, role guard
+    properties/              Search, cards, property detail UI
+    tenant/                  Profile, saved homes, visit UI and state
+    landlord/                Listing management and visit UI and state
+    admin/                   Administrative UI and state
+  server/                    Server-only code; never import into client UI
+    modules/                 Domain-specific database models and services
       admin/
       landlord/
       property/
       tenant/
       user/
       visit/
-    common/
-      db/                   Database connection
-      middlewares/          Validation and upload middleware
-      validations/          Request and model validation schemas
-      utils/                API responses, errors, upload utilities
-    app.ts                  Express application and route registration
-    env.ts                  Server environment validation
-    index.ts                API process entry point
-    seed.ts                 Database seed entry point
-render.yaml                 Existing backend Render deployment configuration
+    config/                  Server environment access
+    db/                      Shared MongoDB connection and model registration
+    http/                    API authentication, responses, error handling
+    storage/                 Multipart parsing and Cloudinary streaming uploads
+    validation/              Zod schemas
+  components/
+    layout/                  Header, footer, sidebar, shared shell
+    feedback/                Shared loading UI
+    ui/                      Reusable UI primitives
+  providers/                 Application provider composition
+  lib/                       Shared client HTTP configuration and utilities
+  hooks/                     Shared React hooks
+  data/                      Static reference data
+  styles/                    Global styles and design tokens
+  proxy.js                   Clerk session integration
+public/images/               Static assets
+scripts/                     Database seed and API verification commands
+tests/server/                Server migration regression checks
+docs/                        Supporting project documentation
 ```
 
-Within a frontend feature, `components/` contains UI, `context/` contains shared feature state, `services/` contains HTTP calls, and `utils/` contains feature helpers. Add only the folders a feature needs. Keep route files thin: compose layouts or render feature components. Next.js route groups in parentheses organize routes without changing URLs.
+Route files handle HTTP requests or compose page layouts. Client feature folders contain `components/`, `context/`, `services/`, and `utils/` as needed. Feature `services/` are browser HTTP clients; `src/server/modules/` contains database and business logic. Server modules are protected with `server-only` imports.
 
-## Local setup
+## Setup
 
-Use Node.js 20.9 or newer. From the repository root:
+Use Node.js 20.9 or newer:
 
 ```sh
-npm --prefix frontend ci
-npm --prefix backend install
+npm ci
 ```
 
-The backend also retains its existing Bun lockfile; `bun install --frozen-lockfile` inside `backend/` is an alternative to its npm install step.
+Copy `.env.example` to `.env.local`, then fill in:
 
-Copy `frontend/.env.example` to `frontend/.env.local` and `backend/.env.example` to `backend/.env`. Fill in credentials before starting either service. Use the same Clerk instance in both applications.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Browser Clerk configuration |
+| `CLERK_SECRET_KEY` | Server Clerk API access; same Clerk instance as the public key |
+| `CLERK_WEBHOOK_SIGNING_SECRET` | Verify Clerk webhook signatures |
+| `ADMIN_EMAIL` | Email allowed to receive the admin role |
+| `MONGODB_URI` | MongoDB connection string |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary account |
+| `CLOUDINARY_API_KEY` | Cloudinary API access |
+| `CLOUDINARY_API_SECRET` | Cloudinary server secret |
 
-Frontend configuration:
-
-```dotenv
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
-CLERK_SECRET_KEY=your_secret_key
-API_URL=http://localhost:8080/api
-```
-
-Set the backend's `PORT=8080` and `CLIENT=http://localhost:3000`, along with its MongoDB, Cloudinary, Clerk, webhook signing secret, and admin email settings. Register Clerk webhooks against the backend's `/api/webhooks/clerk` URL. Do not expose server secrets through `NEXT_PUBLIC_` variables.
-
-Start two terminals at the repository root:
+Only the publishable key belongs in a `NEXT_PUBLIC_` variable. API calls use the same origin at `/api`; no backend URL, CORS configuration, or second process is needed.
 
 ```sh
-# Terminal 1: API
-npm run dev:api
-
-# Terminal 2: Next.js, http://localhost:3000
 npm run dev
 ```
 
-The browser sends requests to `/api` on the Next.js origin. `next.config.mjs` forwards them to `API_URL`, including the `/api` prefix. Include `/api/v1` instead if using the API's versioned routes. For direct calls to an independently hosted backend, set `NEXT_PUBLIC_API_URL` to its full API base URL and configure the backend's `CLIENT` origin accordingly.
-
-Existing local Vite environment names were migrated to `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `NEXT_PUBLIC_API_URL`, and `NEXT_PUBLIC_APP_URL`. New environments should follow the example file. Next.js public variables are embedded during the build; rebuild after changing them or the rewrite destination.
+Open `http://localhost:3000`. Register Clerk webhooks at `https://your-domain/api/webhooks/clerk`, using the signing secret from that endpoint. Existing API URLs under `/api/v1/` are internally rewritten to the corresponding `/api/` handler.
 
 ## Commands
 
-| Root command | Purpose |
+| Command | Purpose |
 | --- | --- |
-| `npm run dev` | Start Next.js development server |
-| `npm run dev:api` | Watch, compile, and run the Express API |
-| `npm run lint` | Check frontend code with Next.js ESLint rules |
-| `npm run build` | Build frontend and backend |
-| `npm run build:web` | Build only Next.js |
-| `npm run build:api` | Compile only the backend |
-| `npm start` | Run the built Next.js app |
-| `npm run start:api` | Run the compiled API |
+| `npm run dev` | Run the UI and API together in Next.js |
+| `npm run build` | Build the complete application and check TypeScript |
+| `npm start` | Run the production build |
+| `npm run lint` | Check frontend and server code |
+| `npm run typecheck` | Check server and route TypeScript |
+| `npm run test:server` | Run server regression checks without a live database |
+| `npm run test:api -- http://localhost:3000` | Check native routes against a running app |
+| `npm run seed` | Populate the configured database with sample data |
 
-## Routes and authentication
+The seed command writes sample records into the database specified by `MONGODB_URI`; run it only when sample data is wanted. Environment loading uses Next.js conventions. There is one root package manifest and npm lockfile.
 
-Public pages: `/` and `/property/[id]`.
+## Authentication and API behavior
 
-Tenant pages: `/filter-properties`, `/account`, `/my-visits`, `/saved-properties`.
+Clerk verifies the session in API handlers before protected database operations. Client role guards control page access; server services enforce administrative access and ownership. User-editable signup metadata cannot grant the admin role. Toggling property availability requires the property's landlord.
 
-Landlord pages: `/dashboard/landlord`, `/dashboard/landlord/properties`, `/dashboard/landlord/visits`, `/dashboard/landlord/add-new-property`.
+The API keeps the response shape `{ success, message, data }` used by the existing UI. Validation and authentication failures return JSON errors with appropriate HTTP status codes. Public property reads remain available without login. Database connections are established on demand and shared across requests.
 
-Admin pages: `/dashboard/admin`, `/dashboard/admin/all-users`, `/dashboard/admin/all-landlords`, `/dashboard/admin/all-properties`.
+Property uploads use `request.formData()` and stream image buffers to Cloudinary without temporary files or Multer. A request can contain up to 10 images, each up to 10 MiB, with a combined limit of 25 MiB. Your hosting provider may impose a smaller request limit.
 
-Login pages: `/login/tenant`, `/login/landlord`, `/login/admin`. `/login` redirects to the tenant login; unsupported roles return 404. Clerk authentication components use hash routing for their multi-step flows.
-
-`RoleGuard` waits for session verification before rendering protected UI. It redirects users to their role's home page or login. Backend authorization remains responsible for access to protected API data. Admin and landlord providers mount only inside their respective dashboard layouts.
+The Clerk webhook verifies the original request body before connecting to the database or processing an event. It handles user creation, updates, and deletion through the same server services as the API.
 
 ## Deployment
 
-Deploy `frontend/` as a Next.js Node application with `npm ci`, `npm run build`, and `npm start`. It requires a Node runtime for Clerk integration and API rewrites. Configure the frontend's Clerk variables and `API_URL` in the deployment environment before building. `API_URL` must point to a backend reachable from that server, not production localhost.
+Deploy the repository root as a Next.js Node application:
 
-The existing `render.yaml` continues to deploy the backend separately. Set the backend's `CLIENT` to the deployed frontend origin and configure the Clerk instance for that origin. No deployment is performed by this migration.
+```sh
+npm ci
+npm run build
+npm start
+```
 
-## Verification
+Configure all variables from `.env.example` on the host. The Clerk publishable key must be present when building. Set the Clerk application URLs and webhook destination to the deployed app's origin. Static export is unsuitable because API routes, database access, and Clerk run on the server.
 
-Frontend lint, the Next.js production build, and backend TypeScript compilation pass. A production-mode Chrome smoke check passed for homepage rendering, client navigation to a property, dynamic-route refresh, role login pages, login redirects, not-found pages, and unauthenticated tenant/landlord/admin guards, with no browser runtime errors. Property requests used an API fixture for this check.
+`render.yaml` now builds and serves the entire application from the repository root and checks `/api/health`. The existing Render service name is retained to target the existing service. No remote deployment or Blueprint sync is performed by these changes.
 
-Live database-backed workflows and authenticated role actions require a reachable MongoDB instance and valid service credentials. A MongoDB SRV DNS failure in the current environment prevented live API verification during migration.
+## Migration verification
+
+The separate Vite and Express applications have been replaced by one Next.js app. Existing page URLs and API aliases are preserved. The database seed entry point is now `scripts/seed.ts`; the original data-model notes are preserved in [docs/data-model.md](docs/data-model.md).
+
+Verification passed for the production build, lint, TypeScript, six server regression checks, and native API smoke checks covering health, 30 protected requests, versioned aliases, invalid IDs, unsigned webhook rejection, and unsupported methods. Chrome checks passed for home and property navigation, dynamic-route refresh, and tenant/landlord/admin login guards without browser runtime errors. Property UI checks used an API fixture. The Render configuration matches the current official JSON schema.
+
+Live database-backed workflows require a reachable MongoDB instance and valid external credentials. The configured MongoDB SRV record failed DNS resolution during migration, so live data operations could not be verified in this environment.

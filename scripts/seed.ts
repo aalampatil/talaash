@@ -1,11 +1,13 @@
-import "dotenv/config";
+import { loadEnvConfig } from "@next/env";
+
+loadEnvConfig(process.cwd());
 import mongoose from "mongoose";
-import { connectDB } from "./common/db/db.js";
-import { Landlord } from "./modules/landlord/landlord.model.js";
-import { PropertyModel } from "./modules/property/property.model.js";
-import { Tenant } from "./modules/tenant/tenant.model.js";
-import { User, type UserDocument } from "./modules/user/user.model.js";
-import { Visit } from "./modules/visit/visit.model.js";
+import { connectDB } from "../src/server/db/connect";
+import { Landlord } from "../src/server/modules/landlord/landlord.model";
+import { PropertyModel } from "../src/server/modules/property/property.model";
+import { Tenant } from "../src/server/modules/tenant/tenant.model";
+import { User, type UserDocument } from "../src/server/modules/user/user.model";
+import { Visit } from "../src/server/modules/visit/visit.model";
 
 type AppRole = UserDocument["role"];
 type HouseholdType = "family" | "single" | "room";
