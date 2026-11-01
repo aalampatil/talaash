@@ -1,32 +1,16 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  ...nextVitals,
+  globalIgnores([".next/**", "out/**", "dist/**", "node_modules/**"]),
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/purity': 'off',
-      'react-refresh/only-export-components': 'off',
+      // Existing data providers synchronize API responses into client state.
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/purity": "off",
+      // Property image URLs are supplied dynamically by the API.
+      "@next/next/no-img-element": "off",
     },
   },
-])
+]);
