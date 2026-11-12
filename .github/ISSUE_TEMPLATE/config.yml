@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Report a security vulnerability privately
-    url: https://github.com/aalampatil/talaash-ap/blob/HEAD/SECURITY.md
+    url: https://github.com/aalampatil/talaash/blob/HEAD/SECURITY.md
     about: Follow the security policy; do not disclose vulnerabilities in public issues.

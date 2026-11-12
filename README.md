@@ -13,9 +13,20 @@ A full-stack Next.js application for rental property discovery, tenant visits, l
 
 Read the [contributing guidelines](CONTRIBUTING.md) before opening an issue or pull request. All participants are expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
 
-- [Report a bug or request a feature](https://github.com/aalampatil/talaash-ap/issues/new/choose).
+- [Report a bug, request a feature, or suggest a documentation improvement](https://github.com/aalampatil/talaash/issues/new/choose).
 - Report vulnerabilities privately using the [security policy](SECURITY.md).
 - This project is licensed under the [MIT License](LICENSE).
+
+| Community resource                                      | Where to find it                                          |
+| ------------------------------------------------------- | --------------------------------------------------------- |
+| Contribution and development guidelines                 | [CONTRIBUTING.md](CONTRIBUTING.md)                        |
+| Expected behavior and private conduct reporting         | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)                  |
+| License and permissions                                 | [LICENSE](LICENSE)                                        |
+| Supported code and private vulnerability reporting      | [SECURITY.md](SECURITY.md)                                |
+| Bug reports, feature requests, and documentation issues | [Issue templates](.github/ISSUE_TEMPLATE/)                |
+| Change descriptions and review checklist                | [Pull request template](.github/pull_request_template.md) |
+
+The repository's [Community Standards page](https://github.com/aalampatil/talaash/community) shows GitHub's checks for files published on the default branch. The repository description is configured separately in GitHub's **About** section; the description in `package.json` does not set it automatically.
 
 ## Interface
 
@@ -88,17 +99,17 @@ npm ci
 
 Copy `.env.example` to `.env.local`, then fill in:
 
-| Variable | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Browser Clerk configuration |
-| `CLERK_SECRET_KEY` | Server Clerk API access; same Clerk instance as the public key |
-| `CLERK_WEBHOOK_SIGNING_SECRET` | Verify Clerk webhook signatures |
-| `ADMIN_EMAIL` | Email allowed to receive the admin role |
-| `MONGODB_URI` | MongoDB connection string |
-| `MONGODB_DNS_SERVERS` | Optional comma-separated DNS servers for MongoDB SRV discovery when the system resolver fails |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary account |
-| `CLOUDINARY_API_KEY` | Cloudinary API access |
-| `CLOUDINARY_API_SECRET` | Cloudinary server secret |
+| Variable                            | Purpose                                                                                       |
+| ----------------------------------- | --------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Browser Clerk configuration                                                                   |
+| `CLERK_SECRET_KEY`                  | Server Clerk API access; same Clerk instance as the public key                                |
+| `CLERK_WEBHOOK_SIGNING_SECRET`      | Verify Clerk webhook signatures                                                               |
+| `ADMIN_EMAIL`                       | Email allowed to receive the admin role                                                       |
+| `MONGODB_URI`                       | MongoDB connection string                                                                     |
+| `MONGODB_DNS_SERVERS`               | Optional comma-separated DNS servers for MongoDB SRV discovery when the system resolver fails |
+| `CLOUDINARY_CLOUD_NAME`             | Cloudinary account                                                                            |
+| `CLOUDINARY_API_KEY`                | Cloudinary API access                                                                         |
+| `CLOUDINARY_API_SECRET`             | Cloudinary server secret                                                                      |
 
 Only the publishable key belongs in a `NEXT_PUBLIC_` variable. API calls use the same origin at `/api`; no backend URL, CORS configuration, or second process is needed.
 
@@ -110,18 +121,18 @@ Open `http://localhost:3000`. Register Clerk webhooks at `https://your-domain/ap
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Run the UI and API together in Next.js |
-| `npm run build` | Build the complete application and check TypeScript |
-| `npm start` | Run the production build |
-| `npm run lint` | Check frontend and server code |
-| `npm run typecheck` | Check server and route TypeScript |
-| `npm run test:server` | Run server regression checks without a live database |
-| `npm run test:ui` | Run desktop and mobile Playwright browser checks |
-| `npm run format:check -- <files>` | Check formatting of specified files |
-| `npm run test:api -- http://localhost:3000` | Check native routes against a running app |
-| `npm run seed` | Populate the configured database with sample data |
+| Command                                     | Purpose                                              |
+| ------------------------------------------- | ---------------------------------------------------- |
+| `npm run dev`                               | Run the UI and API together in Next.js               |
+| `npm run build`                             | Build the complete application and check TypeScript  |
+| `npm start`                                 | Run the production build                             |
+| `npm run lint`                              | Check frontend and server code                       |
+| `npm run typecheck`                         | Check server and route TypeScript                    |
+| `npm run test:server`                       | Run server regression checks without a live database |
+| `npm run test:ui`                           | Run desktop and mobile Playwright browser checks     |
+| `npm run format:check -- <files>`           | Check formatting of specified files                  |
+| `npm run test:api -- http://localhost:3000` | Check native routes against a running app            |
+| `npm run seed`                              | Populate the configured database with sample data    |
 
 The seed command writes sample records into the database specified by `MONGODB_URI`; run it only when sample data is wanted. Environment loading uses Next.js conventions. There is one root package manifest and npm lockfile.
 

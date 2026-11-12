@@ -8,7 +8,7 @@ Security fixes target the latest code on the repository's default branch. Older 
 
 **Do not disclose vulnerabilities in public issues, pull requests, or discussions.**
 
-Email [aalam.workacc@gmail.com](mailto:aalam.workacc@gmail.com) with the subject `Talaash security report`. If private vulnerability reporting is enabled for the repository, you may instead [submit a private report on GitHub](https://github.com/aalampatil/talaash-ap/security/advisories/new).
+Email [aalam.workacc@gmail.com](mailto:aalam.workacc@gmail.com) with the subject `Talaash security report`. If private vulnerability reporting is enabled for the repository, you may instead [submit a private report on GitHub](https://github.com/aalampatil/talaash/security/advisories/new).
 
 Include:
 

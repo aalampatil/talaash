@@ -22,6 +22,7 @@ The UI and API run in one Next.js process. Do not commit environment files, cred
 ## Project conventions
 
 - Use TypeScript and follow the style of nearby code.
+- Before changing Next.js code, read the relevant guides in `node_modules/next/dist/docs/` for the installed version, as required by [AGENTS.md](AGENTS.md).
 - Keep route handlers and page files focused on HTTP handling and page composition.
 - Put client feature code in `src/features/` and database and business logic in `src/server/modules/`.
 - Keep server-only modules out of client imports.

@@ -20,7 +20,7 @@
 
 ## Checklist
 
-- [ ] I read the contributing guidelines and code of conduct.
+- [ ] I read the [contributing guidelines](https://github.com/aalampatil/talaash/blob/HEAD/CONTRIBUTING.md) and [code of conduct](https://github.com/aalampatil/talaash/blob/HEAD/CODE_OF_CONDUCT.md).
 - [ ] The change is focused and related documentation is updated.
 - [ ] I verified the affected behavior and recorded results above.
 - [ ] I added or updated regression coverage where behavior changes require it, or explained why it is unnecessary.
