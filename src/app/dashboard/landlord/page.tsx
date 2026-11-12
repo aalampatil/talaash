@@ -1,2 +1,1 @@
-export { default } from "@/features/landlord/components/LandlordProperties";
-
+export { default } from "@/features/landlord/components/Dashboard";

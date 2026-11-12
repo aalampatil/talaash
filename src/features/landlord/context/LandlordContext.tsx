@@ -58,9 +58,10 @@ function useLandlordContextValue() {
         toast.success(response.data.message);
         await fetchLandlordProperties(); // refresh list
         router.push("/dashboard/landlord/properties");
-      }
+      } else throw new Error(response.data.message || "Property creation failed");
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 

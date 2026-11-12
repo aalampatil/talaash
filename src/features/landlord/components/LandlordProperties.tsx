@@ -1,92 +1,13 @@
 "use client";
 
-
+import EmptyState from "@/components/ui/empty-state";
+import PageHeading from "@/components/ui/page-heading";
 import { UseLandlordContext } from "@/features/landlord/context/LandlordContext";
 import { getPropertyImageUrl } from "@/features/properties/utils/propertyImage";
+import { ArrowUpRight, CalendarDays, MapPin, Plus } from "lucide-react";
 import Link from "next/link";
 
-function LandlordProperties() {
+export default function LandlordProperties() {
   const { landlordProperties } = UseLandlordContext();
-
-  if (!landlordProperties || landlordProperties.length === 0) {
-    return (
-      <div className="h-screen flex items-center justify-center text-gray-500 text-lg">
-        No properties found. Add a new property.
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-white p-8">
-      <h1 className="text-2xl font-semibold mb-8 border-b pb-3">
-        My Properties
-      </h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {landlordProperties.map((property) => (
-          <div
-            key={property._id}
-            className="border rounded-lg overflow-hidden hover:border-black transition"
-          >
-            {/* Property Image */}
-            {property.images && property.images[0] && (
-              <img
-                src={getPropertyImageUrl(property.images[0])}
-                alt={property.title}
-                className="h-44 w-full object-cover"
-              />
-            )}
-
-            {/* Info */}
-            <div className="p-4 space-y-2">
-              <h2 className="text-lg font-medium">{property.title}</h2>
-
-              <p className="text-sm text-gray-500">
-                {property.location?.city}, {property.location?.area}
-              </p>
-
-              <p className="text-sm text-gray-700 line-clamp-2">
-                {property.description}
-              </p>
-
-              <p className="text-sm font-semibold">Rs{property.rent} / month</p>
-
-              {/* Amenities */}
-              {property.amenities && property.amenities.length > 0 && (
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {property.amenities.map((amenity, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs border px-2 py-1 rounded"
-                    >
-                      {amenity}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Actions */}
-              <div className="flex gap-3 pt-4">
-                <Link
-                  href={`/dashboard/landlord/properties/edit/${property._id}`}
-                  className="text-sm border px-3 py-1.5 rounded hover:bg-black hover:text-white transition"
-                >
-                  Edit
-                </Link>
-
-                <Link
-                  href={`/dashboard/landlord/properties/${property._id}/visits`}
-                  className="text-sm border px-3 py-1.5 rounded hover:bg-black hover:text-white transition"
-                >
-                  Visits
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <div className="dashboard-page"><PageHeading eyebrow="Places with possibility" title="Your spaces. Their next chapter." description="Keep an eye on your listings and help the right people find their way home." action={<Link href="/dashboard/landlord/add-new-property" className="button-primary"><Plus size={16} />Add a property</Link>} />{!landlordProperties.length ? <EmptyState title="Every story starts with a space." description="Your first property could be someone’s favourite place. Add a few details and photos to get started." href="/dashboard/landlord/add-new-property" action="List your first property" /> : <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">{landlordProperties.map(property => <article key={property._id} className="surface overflow-hidden"><div className="relative"><img src={getPropertyImageUrl(property.images?.[0])} onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = '/images/property-placeholder.svg'; }} alt={property.title} loading="lazy" className="aspect-[4/3] w-full object-cover" /><span className="status-pill absolute left-3 top-3" data-status={property.status}>{property.status}</span></div><div className="p-5"><span className="eyebrow">{property.propertyType.replace('BHK', ' BHK')}</span><h2 className="mt-2 text-base font-semibold">{property.title}</h2><p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground"><MapPin size={12} />{[property.location?.area, property.location?.city].filter(Boolean).join(', ')}</p><p className="mt-4 text-xl font-semibold">₹{property.rent.toLocaleString('en-IN')}<span className="ml-1 text-[10px] font-normal text-muted-foreground">/ month</span></p><div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4"><Link href={`/property/${property._id}`} className="inline-flex items-center gap-1.5 text-xs font-semibold">View listing <ArrowUpRight size={14} /></Link><Link href="/dashboard/landlord/visits" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground"><CalendarDays size={14} />Visits</Link></div></div></article>)}</div>}</div>;
 }
-
-export default LandlordProperties;
