@@ -1,88 +1,77 @@
 "use client";
-import type { Property,User } from "@/types/domain";
 
-
+import type { Property, User } from "@/types/domain";
 import { adminApi } from "@/features/admin/services/admin.api";
 import { UseUserContext } from "@/features/auth/context/UserContext";
-import { createContext,useContext,useEffect,useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-const AdminContext = createContext<ReturnType<typeof useAdminContextValue> | null>(null);
-
+const AdminContext = createContext<ReturnType<
+  typeof useAdminContextValue
+> | null>(null);
 function useAdminContextValue() {
   const { authStatus, user } = UseUserContext();
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [allLandlords, setAllLandlords] = useState<User[]>([]);
   const [allProperties, setAllProperties] = useState<Property[]>([]);
-
-  const [totalUsers, setTotalUsers] = useState(0);
-  const [totalProperties, setTotalProperties] = useState(0);
-  const [totalLandlords, setTotalLandlords] = useState(0);
-
-  // Fetch Users
-  const fetchAllUsers = async () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const reload = useCallback(async () => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await adminApi.users();
-
-      if (response.data.success) {
-        setAllUsers(response.data.data);
-        setTotalUsers(response.data.data.length);
-      }
-    } catch (error) {
-      console.error(error);
+      const [users, landlords, properties] = await Promise.all([
+        adminApi.users(),
+        adminApi.landlords(),
+        adminApi.properties(),
+      ]);
+      if (
+        !users.data.success ||
+        !landlords.data.success ||
+        !properties.data.success
+      )
+        throw new Error("Incomplete administration response");
+      setAllUsers(users.data.data);
+      setAllLandlords(landlords.data.data);
+      setAllProperties(properties.data.data);
+    } catch {
+      setError("We couldn’t load the community overview. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  };
-
-  // Fetch Landlords
-  const fetchAllLandlords = async () => {
-    try {
-      const response = await adminApi.landlords();
-
-      if (response.data.success) {
-        setAllLandlords(response.data.data);
-        setTotalLandlords(response.data.data.length);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Fetch Properties
-  const fetchAllProperties = async () => {
-    try {
-      const response = await adminApi.properties();
-
-      if (response.data.success) {
-        setAllProperties(response.data.data);
-        setTotalProperties(response.data.data.length);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // fetch everything when admin dashboard loads
+  }, []);
   useEffect(() => {
-    if (!authStatus || user?.role !== "admin") return;
-
-    fetchAllUsers();
-    fetchAllLandlords();
-    fetchAllProperties();
-  }, [authStatus, user]);
-
-  const value = {
+    if (authStatus && user?.role === "admin") reload();
+  }, [authStatus, user?._id, user?.role, reload]);
+  return {
     allUsers,
     allLandlords,
     allProperties,
-    totalUsers,
-    totalProperties,
-    totalLandlords,
+    totalUsers: allUsers.length,
+    totalProperties: allProperties.length,
+    totalLandlords: allLandlords.length,
+    loading,
+    error,
+    reload,
   };
-
+}
+export function AdminContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const value = useAdminContextValue();
+  return (
+    <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
+  );
+}
+export function UseAdminContext() {
+  const value = useContext(AdminContext);
+  if (!value) throw new Error("Missing AdminContext provider");
   return value;
 }
-
-export function AdminContextProvider({ children }: { children: React.ReactNode }) { const value = useAdminContextValue(); return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>; }
-
-export const UseAdminContext = () => {
-  const value = useContext(AdminContext); if (!value) throw new Error("Missing AdminContext provider"); return value;
-};
