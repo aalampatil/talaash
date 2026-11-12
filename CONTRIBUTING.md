@@ -53,6 +53,8 @@ Use a local development instance for smoke checks. For UI changes, verify the af
 
 For documentation-only changes, check spelling, links, commands, and consistency with the project. Application builds are unnecessary unless the documentation change also modifies code or configuration.
 
+For discovery, navigation, or authentication page changes, run the desktop and mobile browser checks with `npm run test:ui`. Install the browser once with `npx playwright install chromium`, or set `PLAYWRIGHT_CHANNEL=chrome` to use an installed Chrome browser. See [the interface guide](docs/design.md#verification) for test coverage and the limits of signed-out fixture checks.
+
 ## Pull requests
 
 Open a pull request against the repository's default branch and complete the [pull request template](.github/pull_request_template.md). Describe the problem, the resulting behavior, and how you verified it. Link related issues and note any configuration changes, migrations, limitations, or checks you could not run.

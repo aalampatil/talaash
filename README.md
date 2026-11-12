@@ -17,6 +17,10 @@ Read the [contributing guidelines](CONTRIBUTING.md) before opening an issue or p
 - Report vulnerabilities privately using the [security policy](SECURITY.md).
 - This project is licensed under the [MIT License](LICENSE).
 
+## Interface
+
+Talaash uses a responsive editorial design across home discovery, public search, property details, authentication, tenant accounts, and landlord/admin workspaces. Search filters are stored in the URL and can be shared or refreshed. See the [interface guide](docs/design.md) for design conventions, assets, and browser verification.
+
 ## Folder structure
 
 ```text
@@ -114,6 +118,8 @@ Open `http://localhost:3000`. Register Clerk webhooks at `https://your-domain/ap
 | `npm run lint` | Check frontend and server code |
 | `npm run typecheck` | Check server and route TypeScript |
 | `npm run test:server` | Run server regression checks without a live database |
+| `npm run test:ui` | Run desktop and mobile Playwright browser checks |
+| `npm run format:check -- <files>` | Check formatting of specified files |
 | `npm run test:api -- http://localhost:3000` | Check native routes against a running app |
 | `npm run seed` | Populate the configured database with sample data |
 
