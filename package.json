@@ -1,5 +1,7 @@
 {
   "name": "talaash",
+  "description": "Rental property discovery and management with tenant visits, landlord listings, and role-based administration.",
+  "license": "MIT",
   "private": true,
   "version": "0.0.0",
   "type": "module",

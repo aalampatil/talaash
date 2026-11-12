@@ -2,6 +2,21 @@
 
 A full-stack Next.js application for rental property discovery, tenant visits, landlord listings, and administration. UI pages and API endpoints run together in one Next.js process. MongoDB stores application data, Clerk handles authentication, and Cloudinary stores property images.
 
+## Features
+
+- Search rental properties and view listing details and images.
+- Manage tenant profiles, preferences, saved properties, and visit requests.
+- Create and manage landlord listings, availability, and visit approvals.
+- Administer users, landlords, and properties through role-based dashboards.
+
+## Community and support
+
+Read the [contributing guidelines](CONTRIBUTING.md) before opening an issue or pull request. All participants are expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
+
+- [Report a bug or request a feature](https://github.com/aalampatil/talaash-ap/issues/new/choose).
+- Report vulnerabilities privately using the [security policy](SECURITY.md).
+- This project is licensed under the [MIT License](LICENSE).
+
 ## Folder structure
 
 ```text
