@@ -1,83 +1,13 @@
 "use client";
 
-
-import { getPropertyImageUrl } from "@/features/properties/utils/propertyImage";
+import EmptyState from "@/components/ui/empty-state";
+import PageHeading from "@/components/ui/page-heading";
+import PropertyCard from "@/features/properties/components/PropertyCard";
 import { useTenantContext } from "@/features/tenant/context/TenantContext";
+import { ArrowUpRight, Heart } from "lucide-react";
 import Link from "next/link";
 
-function SavedProperties() {
+export default function SavedProperties() {
   const { savedProperties } = useTenantContext();
-
-  if (!savedProperties || savedProperties.length === 0) {
-    return (
-      <div className="h-screen flex items-center justify-center text-gray-500">
-        No saved properties yet
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full min-h-screen mx-auto px-10 py-10">
-      <h1 className="text-2xl font-semibold mb-6">Saved Properties</h1>
-
-      <div className="flex flex-col gap-6">
-        {savedProperties.map((property) => (
-          <div
-            key={property._id}
-            className="border rounded-lg overflow-hidden flex gap-6 p-4 hover:shadow-md transition"
-          >
-            {/* Property Image */}
-            <img
-              src={getPropertyImageUrl(property.images?.[0])}
-              alt={property.title}
-              className="w-48 h-32 object-cover rounded-md"
-            />
-
-            {/* Property Details */}
-            <div className="flex flex-col justify-between flex-1">
-              <div>
-                <h2 className="text-lg font-semibold">{property.title}</h2>
-
-                <p className="text-sm text-gray-600">
-                  {property.location?.area}, {property.location?.city}
-                </p>
-
-                <p className="text-sm text-gray-600">
-                  Type: {property.propertyType}
-                </p>
-
-                <p className="text-sm text-gray-600">
-                  Rating: {property.ratings || "N/A"}
-                </p>
-
-                <p
-                  className={`text-xs mt-1 ${
-                    property.status === "available"
-                      ? "text-green-600"
-                      : "text-red-500"
-                  }`}
-                >
-                  {property.status}
-                </p>
-              </div>
-
-              {/* Right Section */}
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-lg font-semibold">₹{property.rent}/month</p>
-
-                <Link
-                  href={`/property/${property._id}`}
-                  className="border border-black px-4 py-1 text-sm hover:bg-black hover:text-white transition"
-                >
-                  View
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <div className="dashboard-page"><PageHeading eyebrow="Your personal collection" title="A few places you love." description="Keep the possibilities close. Your saved homes, ready when you are." action={<Link href="/filter-properties" className="button-secondary">Find more homes <ArrowUpRight size={16} /></Link>} /><div className="mb-7 flex items-center gap-2 border-b border-border pb-5 text-xs text-muted-foreground"><Heart size={15} />{savedProperties.length} {savedProperties.length === 1 ? 'home' : 'homes'} in your collection</div>{savedProperties.length ? <div className="grid gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{savedProperties.map(property => <PropertyCard key={property._id} id={property._id} image={property.images?.[0]} title={property.title} price={`₹${property.rent.toLocaleString('en-IN')}`} city={property.location?.city} area={property.location?.area} type={property.propertyType} amenities={property.amenities} status={property.status} />)}</div> : <EmptyState title="Your favourites start here." description="See a place you can picture yourself in? Tap the heart to save it. You’ll find all your possibilities right here." href="/filter-properties" action="Discover your space" />}</div>;
 }
-
-export default SavedProperties;
