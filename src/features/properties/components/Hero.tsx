@@ -1,124 +1,29 @@
-"use client";
-
-
-import { UseUserContext } from "@/features/auth/context/UserContext";
+import Search from "@/features/properties/components/Search";
+import { ArrowDown, ArrowUpRight, House, Leaf, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { useEffect,useState } from "react";
 
-function HeroSection() {
-  const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const { authStatus, becomeLandlord, user } = UseUserContext();
-
-  useEffect(() => {
-    const show = localStorage.getItem("showDisclaimer");
-
-    if (!show) {
-      setShowDisclaimer(true);
-    }
-  }, []);
-
-  const handleClose = () => {
-    localStorage.setItem("showDisclaimer", "true");
-    setShowDisclaimer(false);
-  };
-
-  return (
-    <section className="w-full min-h-[90vh] px-3 py-3 flex items-center">
-      {showDisclaimer && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
-          <div className="bg-white max-w-lg w-[90%] border border-black rounded-xl p-8 shadow-xl">
-            {/* Title */}
-            <h2 className="text-xl font-semibold mb-4">Disclaimer</h2>
-
-            {/* Content */}
-            <p className="text-gray-700 text-sm leading-relaxed">
-              Talaash is a rental property listing platform designed to connect
-              tenants with property owners. The platform currently facilitates
-              property discovery and communication between users.
-            </p>
-
-            <p className="text-gray-700 text-sm leading-relaxed mt-3">
-              As of <span className="font-medium">v1.0.0</span>, Talaash does
-              not perform property verification or manage rental transactions.
-              Future updates will introduce verification and move-in workflows
-              to improve trust and safety across the platform.
-            </p>
-
-            {/* Footer */}
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={handleClose}
-                className="border border-black px-5 py-2 text-sm hover:bg-black hover:text-white transition rounded-md"
-              >
-                Close
-              </button>
-            </div>
-          </div>
+export default function HeroSection() {
+  return <section className="relative overflow-hidden border-b border-border bg-[#f2f1e8]">
+    <div className="page-container relative pb-10 pt-10 lg:pb-14 lg:pt-14">
+      <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.03fr] lg:gap-14">
+        <div className="reveal relative z-10 py-2 lg:pb-12">
+          <p className="eyebrow mb-6 flex items-center gap-2"><span className="size-1.5 rounded-full bg-[#9c7950]" />A place for your next chapter</p>
+          <h1 className="display-title max-w-xl text-[clamp(3.4rem,6.1vw,6.1rem)]">Somewhere,<br />you’ll feel<br /><span className="italic text-primary">right at home.</span></h1>
+          <p className="mt-6 max-w-sm text-sm leading-7 text-muted-foreground sm:text-base">A sunny corner. Your favourite neighbourhood. A little more room to be you. Find your next rental with Talaash.</p>
+          <div className="mt-8 flex items-center gap-6"><Link href="/filter-properties" className="text-link">Discover your space <ArrowUpRight size={16} /></Link><span className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><Leaf size={15} strokeWidth={1.5} />A fresh start awaits</span></div>
         </div>
-      )}
-      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-5">
-        {/* LEFT CONTENT */}
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-bold text-black tracking-tight">
-            talaash
-          </h1>
-
-          <p className="mt-4 text-xl md:text-2xl text-red-900 font-medium">
-            the search ends here
-          </p>
-
-          <p className="mt-4 text-sm md:text-lg text-red-900 max-w-lg">
-            Find your next home with ease. Explore verified properties, discover
-            the perfect neighborhood, and make your move with confidence.
-          </p>
-
-          {/* CTA */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Link
-              href={"/filter-properties"}
-              className="bg-red-900 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium shadow-md transition"
-            >
-              Explore Homes
-            </Link>
-
-            {authStatus && user?.role === "tenant" ? (
-              <button
-                type="button"
-                onClick={becomeLandlord}
-                className="border border-red-600 text-red-900 px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition"
-              >
-                List Your Property
-              </button>
-            ) : authStatus && user?.role === "landlord" ? (
-              <Link
-                href="/dashboard/landlord"
-                className="border border-red-600 text-red-900 px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition"
-              >
-                List Your Property
-              </Link>
-            ) : (
-              <Link
-                href="/login/landlord"
-                className="border border-red-600 text-red-900 px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition"
-              >
-                List Your Property
-              </Link>
-            )}
+        <div className="relative mx-auto w-full max-w-xl pb-6 lg:max-w-none">
+          <div className="hero-photo relative h-[350px] overflow-hidden rounded-t-[180px] rounded-b-2xl sm:h-[480px] lg:h-[550px] lg:rounded-t-[240px]">
+            <img src="/images/editorial/living-room.jpg" alt="Sunlit living room with natural wood, a soft sofa, and room to make yourself at home" fetchPriority="high" width={1800} height={1200} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+            <div className="absolute bottom-7 left-7 text-white"><p className="text-[10px] uppercase tracking-[0.18em]">Less searching. More living.</p><p className="mt-2 font-display text-3xl">Make room for life.</p></div>
           </div>
-        </div>
-
-        {/* RIGHT IMAGE */}
-        <div className="flex-1 flex justify-center">
-          <img
-            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=75"
-            alt="home"
-            fetchPriority="high"
-            className="w-full max-w-md md:max-w-lg rounded-2xl shadow-xl object-cover"
-          />
+          <div className="absolute -right-2 top-10 flex size-20 -rotate-12 flex-col items-center justify-center rounded-full border border-[#d7deca] bg-[#e7ecd9] text-primary sm:-right-5 sm:size-24"><Sparkles size={19} strokeWidth={1.3} /><span className="mt-1 text-center text-[9px] font-semibold uppercase leading-4 tracking-wider">New keys.<br />New beginnings.</span></div>
+          <div className="absolute -bottom-1 left-4 flex items-center gap-3 rounded-xl border border-border bg-background px-5 py-4 shadow-sm sm:-left-6"><span className="flex size-10 items-center justify-center rounded-full bg-[#e8ecde]"><House size={20} strokeWidth={1.4} /></span><div><p className="text-xs font-semibold">Your place is out there.</p><p className="mt-1 text-[11px] text-muted-foreground">Let’s help you find it.</p></div></div>
         </div>
       </div>
-    </section>
-  );
+      <div className="reveal reveal-delay mt-9 lg:mt-1 lg:max-w-[1050px]"><Search /></div>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-4 text-[11px] text-muted-foreground"><p>Popular searches: {['Pune', 'Bengaluru', 'Mumbai'].map((city, index) => <span key={city}>{index > 0 && <span className="mx-2">·</span>}<Link href={`/filter-properties?city=${city}`} className="underline decoration-border underline-offset-4 hover:text-primary">{city}</Link></span>)}</p><a href="#discover" className="hidden items-center gap-2 sm:flex">A little further, a little closer to home <ArrowDown size={13} /></a></div>
+    </div>
+  </section>;
 }
-
-export default HeroSection;
