@@ -16,38 +16,39 @@
     "test:api": "tsx scripts/check-api.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.0.0",
+    "@clerk/ui": "^1.42.4",
     "axios": "^1.13.6",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.9.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
+    "mongoose": "^9.2.3",
+    "next": "^16.0.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.71.2",
     "react-toastify": "^11.0.5",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.1",
-    "next": "^16.0.0",
-    "@clerk/nextjs": "^7.0.0",
-    "mongoose": "^9.2.3",
-    "cloudinary": "^2.9.0",
-    "zod": "^4.3.6",
-    "server-only": "^0.0.1"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "^22.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^16.5.0",
     "shadcn": "^3.8.5",
+    "tsx": "^4.20.0",
     "tw-animate-css": "^1.4.0",
-    "@tailwindcss/postcss": "^4.2.1",
-    "eslint-config-next": "^16.0.0",
-    "typescript": "^5.9.3",
-    "@types/node": "^22.0.0",
-    "tsx": "^4.20.0"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=20.9.0"
